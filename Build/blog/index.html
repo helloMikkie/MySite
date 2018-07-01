@@ -1,0 +1,60 @@
+        <!-- Hammer reload -->
+          <script>
+            setInterval(function(){
+              try {
+                if(typeof ws != 'undefined' && ws.readyState == 1){return true;}
+                ws = new WebSocket('ws://'+(location.host || 'localhost').split(':')[0]+':35353')
+                ws.onopen = function(){ws.onclose = function(){document.location.reload()}}
+                window.onbeforeunload = function() { ws = null }
+                ws.onmessage = function(){
+                  var links = document.getElementsByTagName('link');
+                    for (var i = 0; i < links.length;i++) {
+                    var link = links[i];
+                    if (link.rel === 'stylesheet' && !link.href.match(/typekit/)) {
+                      href = link.href.replace(/((&|\?)hammer=)[^&]+/,'');
+                      link.href = href + (href.indexOf('?')>=0?'&':'?') + 'hammer='+(new Date().valueOf());
+                    }
+                  }
+                }
+              }catch(e){}
+            }, 1000)
+          </script>
+        <!-- /Hammer reload -->
+      
+
+
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>My Site | </title>
+
+
+  <script src='../anime.js'></script>
+  <link rel='stylesheet' href='../partials/tachyonss.css'>
+<link rel='stylesheet' href='../partials/custom.css'>
+
+
+</head>
+<body>
+
+<header class=" bg-yellow flex justify-between sans-serif f4">
+  <h1 class="logo red"><a href="../index.html " class="link hot-pink">my Site</a></h1>
+  <nav class="primary flex">
+    <ul class="list near-black flex pa3 items-center ">
+      <li><a href="../about.html " class="link red ph2" >about</a></li>
+      <li><a href="index.html " class="link red ph2" >blog</a>
+        <ul class="dib">
+          <li><a href="post-one/index.html ">Post one</a></li>
+          
+          <li><a href="blog_2.html ">blog_2</a></li>
+        </ul>
+      </li>
+      <li><a href="#" class="link red ph2" >something</a></li>
+    </ul>
+  </nav>
+</header>
+
+<h1>Index</h1>
